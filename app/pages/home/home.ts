@@ -1,12 +1,46 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, Loading, Alert, Toast} from 'ionic-angular';
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-  constructor(private navCtrl: NavController) {
 
+  public user = {
+    username: 'zgc',
+    password: ''
+  }
+
+  constructor(private navCtrl: NavController) {
+    this.navCtrl = navCtrl;
+  }
+
+  login() {
+    if (this.user.username == '' || this.user.username.length <= 3) {
+      // let alertUserNameError = Alert.create({
+      //   title: "Ionic Demo",
+      //   subTitle: "输入的用户名格式不正确！",
+      //   buttons: ["OK"]
+      // });
+      // this.navCtrl.present(alertUserNameError);
+
+      let toast = Toast.create({
+        message: "输入的用户名格式不正确！",
+        duration: 2000
+      });
+      this.navCtrl.present(toast);
+    } else {
+      console.log(this.user.username);
+      let loading = Loading.create({
+        content: "Please wait...",
+        duration: 3000
+        // dismissOnPageChange: true
+      });
+      this.navCtrl.present(loading);
+      setTimeout(() => {
+        loading.dismiss();
+      }, 3000);
+    }
   }
 
   onPageLoaded() {
