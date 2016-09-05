@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
-import {NavController, Loading, Alert, Toast} from 'ionic-angular';
+import {NavController, Loading, Toast, Modal} from 'ionic-angular';
+import {Register} from '../home/register';
+import {ImagePicker} from "ionic-native";
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -8,7 +10,8 @@ export class HomePage {
 
   public user = {
     username: 'zgc',
-    password: ''
+    password: '',
+    headface: 'images/4.jpg'
   }
 
   constructor(private navCtrl: NavController) {
@@ -41,6 +44,21 @@ export class HomePage {
         loading.dismiss();
       }, 3000);
     }
+  }
+
+  openRegisterPage() {
+    var modal = Modal.create(Register);
+    this.navCtrl.present(modal);
+  }
+
+  uploadImage() {
+    ImagePicker.getPictures({}).then((result) => {
+      for (var i = 0; i < result.length; i++) {
+        this.user.headface = result[i];
+      }
+    }, (err) => {
+      alert(err);
+    });
   }
 
   onPageLoaded() {

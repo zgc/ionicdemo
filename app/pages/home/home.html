@@ -35,8 +35,11 @@
   <ion-row>
     <ion-col>
       <div class="textAlignRight marginTop10">
-        <button outline>还没有账号？点击注册</button>
+        <button outline (click)="openRegisterPage()">还没有账号？点击注册</button>
       </div>
     </ion-col>
+  </ion-row>
+  <ion-row>
+    <img src="{{user.headface}}" (click)="uploadImage()"/>
   </ion-row>
 </ion-content>
