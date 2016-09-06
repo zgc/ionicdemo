@@ -4,6 +4,7 @@ import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {Http} from '@angular/http';
 import "rxjs/add/operator/map"
+import {Geolocation} from 'ionic-native';
 
 import * as _ from './foo';
 
@@ -24,6 +25,10 @@ export class MyApp {
       this.http.get('http://www.kuaidi100.com/query?type=shunfeng&postid=667687969479').map(res => res.json()).subscribe(data => {
         _.log(data);
         _.log(data.com)
+      });
+      Geolocation.getCurrentPosition().then((resp) => {
+        console.log(resp.coords.latitude);
+        console.log(resp.coords.longitude);
       });
     });
   }
