@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
-import {StatusBar} from 'ionic-native';
+import {StatusBar, LocalNotifications} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
 import {Http} from '@angular/http';
 import "rxjs/add/operator/map"
@@ -30,6 +30,10 @@ export class MyApp {
         console.log(resp.coords.latitude);
         console.log(resp.coords.longitude);
       });
+      LocalNotifications.schedule({
+        text: "本地化提醒",
+        at: new Date(new Date().getTime() + 1000)
+      })
     });
   }
 }
