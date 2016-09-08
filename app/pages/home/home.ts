@@ -1,7 +1,10 @@
 import {Component} from '@angular/core';
-import {NavController, Loading, Toast, Modal} from 'ionic-angular';
+import {
+  NavController, Loading, Toast, Modal, ViewController
+} from 'ionic-angular';
 import {Register} from '../home/register';
 import {ImagePicker} from "ionic-native";
+import {Http} from "@angular/http";
 
 @Component({
   templateUrl: 'build/pages/home/home.html'
@@ -9,17 +12,17 @@ import {ImagePicker} from "ionic-native";
 export class HomePage {
 
   public user = {
-    username: 'zgc',
+    username: '',
     password: '',
     headface: 'images/4.jpg'
   }
+  private local;
 
-  constructor(private navCtrl: NavController) {
-    this.navCtrl = navCtrl;
+  constructor(private navCtrl: NavController, private viewCtrl: ViewController, private http: Http) {
   }
 
   login() {
-    if (this.user.username == '' || this.user.username.length <= 3) {
+    if (this.user.username == '') { // || this.user.username.length <= 3
       // let alertUserNameError = Alert.create({
       //   title: "Ionic Demo",
       //   subTitle: "输入的用户名格式不正确！",
@@ -36,13 +39,41 @@ export class HomePage {
       console.log(this.user.username);
       let loading = Loading.create({
         content: "Please wait...",
+        spinner: "dots",
         duration: 3000
         // dismissOnPageChange: true
       });
       this.navCtrl.present(loading);
-      setTimeout(() => {
+      // setTimeout(() => {
+      //   loading.dismiss();
+      // }, 3000);
+      // if (this.user.password == '1') {
+      //   localStorage.setItem('username', this.user.username);
+      //   localStorage.setItem('Logined', 'true');
+      //   setTimeout(() => {
+      //     this.viewCtrl.dismiss(this.user.username);
+      //     loading.dismiss();
+      //   }, 1000);
+      // } else {
+      //   let toast = Toast.create({
+      //     message: "登录失败！",
+      //     duration: 2000
+      //   });
+      //   this.navCtrl.present(toast);
+      // }
+      debugger;
+      this.http.get("http://rap.taobao.org/mockjs/7418/login?username=" + this.user.username + "&password=" + this.user.password).subscribe(data => {
+        localStorage.setItem('username', this.user.username);
+        localStorage.setItem('Logined', 'true');
         loading.dismiss();
-      }, 3000);
+        this.viewCtrl.dismiss(this.user.username);
+      }, error => {
+        let toast = Toast.create({
+          message: "登录失败！",
+          duration: 2000
+        });
+        this.navCtrl.present(toast);
+      });
     }
   }
 

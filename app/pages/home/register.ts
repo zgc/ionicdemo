@@ -8,7 +8,6 @@ import {ViewController} from "ionic-angular";
 export class Register {
 
   constructor(private viewCtrl: ViewController) {
-    this.viewCtrl = viewCtrl;
   }
 
   dismiss() {

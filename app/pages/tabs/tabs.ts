@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {HomePage} from '../home/home';
+import {UserCenter} from '../home/usercenter';
 import {AboutPage} from '../about/about';
 import {ContactPage} from '../contact/contact';
 import {Tabs} from 'ionic-angular';
@@ -18,12 +18,12 @@ export class TabsPage {
   constructor() {
     // this tells the tabs component which Pages
     // should be each tab's root Page
-    this.tab1Root = HomePage;
+    this.tab1Root = UserCenter;
     this.tab2Root = AboutPage;
     this.tab3Root = ContactPage;
   }
 
   ionViewDidEnter() {
-    this.tabRef.select(0);
+    // this.tabRef.select(0);
   }
 }

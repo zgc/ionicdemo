@@ -30,7 +30,6 @@ export class ContactPage {
   }]
 
   constructor(private navCtrl: NavController) {
-    this.navCtrl = navCtrl;
   }
 
   onPageWillEnter() {
@@ -45,5 +44,14 @@ export class ContactPage {
   itemClick(event, contact) {
     // alert(contact.contactname);
     this.navCtrl.push(ContactDetails, {item: contact});
+  }
+
+  removeConnection(contact) {
+    for (var i = 0; i < this.contacts.length; i++) {
+      if (this.contacts[i] == contact) {
+        this.contacts.splice(i, 1)
+      }
+      console.log("request api: " + contact.contactid + " removed!");
+    }
   }
 }
